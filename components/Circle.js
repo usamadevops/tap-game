@@ -10,7 +10,7 @@ import { Svg, Circle } from 'react-native-svg';
 
 const AnimatedCircle = Animated.createAnimatedComponent(Circle);
 
-export default function App() {
+export default function CircleComp() {
   const r = useSharedValue(20);
 
   const handlePress = () => {

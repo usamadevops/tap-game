@@ -10,6 +10,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Provider as PaperProvider, List } from 'react-native-paper';
 import Basic from './components/Basic';
 import WithTimingComp from './components/WithTiming';
+import { animationsByLevel, list } from './components/AnimationList';
 
 type RootStackParamList = {
   Home: undefined;
@@ -23,21 +24,20 @@ function HomeScreen() {
 
   return (
     <View style={{ flex: 1, backgroundColor: '#fff' }}>
-      <List.Section>
-        <List.Subheader>Beginner</List.Subheader>
-        <List.Item
-          title="Basic Animations"
-          onPress={() =>
-            navigation.navigate('animation', { item: <Basic /> })
-          }
-        />
-        <List.Item
-          title="Circle Animation"
-          onPress={() =>
-            navigation.navigate('animation', { item: <WithTimingComp /> })
-          }
-        />
-      </List.Section>
+      {animationsByLevel.map((level, index) => (
+        <List.Section key={index}>
+          <List.Subheader>{level.label}</List.Subheader>
+          {level.animations.map((animation, animIndex) => (
+            <List.Item
+              key={animIndex}
+              title={animation.name}
+              onPress={() =>
+                navigation.navigate('animation', { item: animation.component })
+              }
+            />
+          ))}
+        </List.Section>
+      ))}
     </View>
   );
 }
